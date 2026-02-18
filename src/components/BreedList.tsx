@@ -44,8 +44,8 @@ export default function BreedList({ onSelect }: Props) {
 
   const handleChange = (breed: BreedItem | null) => {
     setSelectedBreed(breed)
-    if (onSelect) {
-      onSelect(breed?.id || null)
+    if (onSelect && breed) {
+      onSelect(breed.id)
     }
   }
 

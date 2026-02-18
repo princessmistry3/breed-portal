@@ -11,33 +11,34 @@ export default function BreedImages({ breedId }: Props) {
 
   useEffect(() => {
     if (!breedId) {
-      setImages([])
-      setLoading(false)
-      setError(null)
       return
     }
 
     let mounted = true
-    setLoading(true)
-    setError(null)
+    
+    const fetchImages = async () => {
+      setLoading(true)
+      setError(null)
+      setImages([])
 
-    fetch(`https://dog.ceo/api/breed/${breedId}/images/random/3`)
-      .then((res) => {
+      try {
+        const res = await fetch(`https://dog.ceo/api/breed/${breedId}/images/random/3`)
         if (!res.ok) throw new Error('Failed to fetch images')
-        return res.json()
-      })
-      .then((data) => {
+        const data = await res.json()
+        
         if (!mounted) return
         setImages(data.message || [])
-      })
-      .catch(() => {
+      } catch {
         if (!mounted) return
         setError('Unable to load images. Please try again.')
-      })
-      .finally(() => {
-        if (!mounted) return
-        setLoading(false)
-      })
+      } finally {
+        if (mounted) {
+          setLoading(false)
+        }
+      }
+    }
+
+    fetchImages()
 
     return () => {
       mounted = false
