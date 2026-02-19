@@ -6,7 +6,7 @@ A modern single-page React application that allows users to browse dog breeds an
 
 1. Clone the repository:
 ```bash
-git clone <repository-url>
+git clone https://github.com/princessmistry3/breed-portal.git
 cd breed-portal
 ```
 
